@@ -1,6 +1,7 @@
 <template>
-  <div class='goods-item'>
-    <img :src="goodsItem.show.img" alt="">
+  <div class='goods-item' @click="itemClick">
+    <!-- @load是vue中针对JS里load函数封装的事件 -->
+    <img :src="goodsItem.show.img" alt="" @load="imageLoad">
     <div class='goods-info'>
       <p>{{goodsItem.title}}</p>
       <span class='price'>{{goodsItem.price}}</span>
@@ -18,6 +19,15 @@ export default {
       default() {
         return {}
       }
+    }
+  },
+  methods: {
+    imageLoad() {
+      // $bus 事件总线
+      this.$bus.$emit('itemImageLoad')
+    },
+    itemClick () {
+      this.$router.push('/detail/' + this.goodsItem.iid)
     }
   }
 }
