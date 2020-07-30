@@ -40,7 +40,7 @@ import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
 // 方法
 import { getHomeMultidata, getHomeGoods } from "network/home";
-import { debounce } from 'common/utils'
+import { itemListenerMixin } from 'common/mixin' // 导入混入对象
 
 export default {
   name: "Home",
@@ -54,6 +54,7 @@ export default {
     RecommendView,
     FeatureView
   },
+  mixins: [itemListenerMixin], // 放入混入对象
   data() {
     return {
       banners: [],
@@ -67,7 +68,7 @@ export default {
       isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
-      saveY: 0 // 离开首页时，用于保存当前位置。
+      saveY: 0, // 离开首页时，用于保存当前位置。
     };
   },
   created() {
@@ -79,16 +80,6 @@ export default {
     this.getHomeGoods("sell");
   },
   mounted () {
-    const refresh = debounce(this.$refs.scroll.refresh, 50)
-    // 1.监听GoodsListItem中图片加载完成。
-    // 在mounted中实现，是为了确保scroll对象有值
-    this.$bus.$on('itemImageLoad', () => {
-      // this.$refs.scroll.refresh()
-      refresh()
-    })
-
-    // 2.获取tabControl的offseTop
-    // 所有的组件都有一个属性$el，用于获取组件中的元素。
   },
   destroyed () {
     console.log('Home diestroyed')
@@ -99,7 +90,11 @@ export default {
     this.$refs.scroll.refresh()
   },
   deactivated () {
+    // 1.保存Y值
     this.saveY = this.$refs.scroll.getScrollY()
+
+    // 2.取消全局事件的监听
+    this.$bus.$off('itemImageLoad', this.itemImgListener)
   },
   computed: {
     showGoods() {
@@ -122,6 +117,7 @@ export default {
           this.currentType = "sell";
           break;
       }
+      // 让两个tabControl的currentIndex保持一致。
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
@@ -139,6 +135,7 @@ export default {
       this.getHomeGoods(this.currentType)
     },
     swiperImageLoad () {
+      // 2.获取tabControl的offseTop，所有的组件都有一个属性$el，用于获取组件中的元素。
       this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop
     },
 

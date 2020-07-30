@@ -1,7 +1,14 @@
+<!--
+ * @Author: Zt2tzzt
+ * @Date: 2020-05-24 16:21:55
+ * @LastEditors: Zt2tzzt
+ * @LastEditTime: 2020-07-29 18:09:30
+ * @Description: file content
+--> 
 <template>
   <div class='goods-item' @click="itemClick">
     <!-- @load是vue中针对JS里load函数封装的事件 -->
-    <img :src="goodsItem.show.img" alt="" @load="imageLoad">
+    <img :src="showImage" alt="" @load="imageLoad">
     <div class='goods-info'>
       <p>{{goodsItem.title}}</p>
       <span class='price'>{{goodsItem.price}}</span>
@@ -21,10 +28,22 @@ export default {
       }
     }
   },
+  computed: {
+    showImage () {
+      return this.goodsItem.image || this.goodsItem.show.img
+    }
+  },
   methods: {
     imageLoad() {
-      // $bus 事件总线
+      // 思路一：直接发射防抖方法，但是当离开Home时，要取消对bus的监听。
       this.$bus.$emit('itemImageLoad')
+      // 思路二：通过路由判断是刷新首页还是刷新详情页。
+      /* if (this.$router.path.indexOf('/home')) {
+        // $bus 事件总线
+        this.$bus.$emit('itemImageLoad')
+      } else if (this.$router.path.indexOf('/detail')) {
+        this.$bus.$emit('detailItemImgLoad')
+      } */
     },
     itemClick () {
       this.$router.push('/detail/' + this.goodsItem.iid)

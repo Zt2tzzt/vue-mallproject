@@ -1,3 +1,10 @@
+<!--
+ * @Author: Zt2tzzt
+ * @Date: 2020-06-15 17:26:41
+ * @LastEditors: Zt2tzzt
+ * @LastEditTime: 2020-07-27 14:42:47
+ * @Description: file content
+--> 
 <template>
   <nav-bar>
     <div slot="left" class="back" @click="backClick">
@@ -33,7 +40,7 @@ export default {
     },
     backClick () {
       // this.$router.go(-1)
-      this.$router.back()
+      this.$router.back() // this.$router.go(-1)
     }
   }
 };
@@ -42,11 +49,12 @@ export default {
 <style>
 .title {
   display: flex;
-  font-size: 12px;
+  margin-top: 5px;
 }
 
 .title-item {
   flex: 1;
+  font-size: 15px;
 }
 
 .active {

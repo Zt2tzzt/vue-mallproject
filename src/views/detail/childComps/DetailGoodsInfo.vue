@@ -2,7 +2,7 @@
  * @Author: Zt2tzzt
  * @Date: 2020-07-23 15:09:03
  * @LastEditors: Zt2tzzt
- * @LastEditTime: 2020-07-23 15:39:21
+ * @LastEditTime: 2020-07-30 10:34:27
  * @Description: file content
 --> 
 <template>
@@ -13,9 +13,13 @@
       <div class="desc">{{detailInfo.desc}}</div>
       <div class="end"></div>
     </div>
-    <div class="info-key">{{detailInfo.detailImage[0].key}}</div>
-    <div class="info-list">
-      <img :key="index" v-for="(item, index) in detailInfo.detailImage[0].list" :src="item" alt="">
+    <div :key="index" v-for="(item, index) in detailInfo.detailImage">
+      <div class="info-key">{{item.key}}</div>
+      <div class="info-list">
+        <img :key="indey" v-for="(itm, indey) in item.list"
+            :src="itm"
+            @load="imageLoad" alt="">
+      </div>
     </div>
   </div>
 </template>
@@ -34,23 +38,23 @@
     data () {
       return {
         counter: 0,
-        imagesLength: 0,
+        // imagesLength: 0, 此参数为详情页图片个数，用于判断图片加载完成时，发送对scroll的刷新。
       }
     },
     methods: {
-      imgLoad () {
-        if (++this.counter === this.imagesLength) {
+       imageLoad () {
+        // if (++this.counter === this.imagesLength) {
           // 当所有图片加载完成后，进行1次回调，计算Scroll的高度。
           this.$emit('imageLoad');
-        }
+        // }
       }
     },
-    watch: {
+    /* watch: {
       // 用watch监听detailInfo对象的变化，从而得到imagesLength。
       detailInfo () {
         this.imagesLength = this.detailInfo.detailImage[0].list.length
       }
-    }
+    } */
 	}
 </script>
 

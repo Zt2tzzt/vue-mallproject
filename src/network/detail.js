@@ -2,7 +2,7 @@
  * @Author: Zt2tzzt
  * @Date: 2020-06-16 10:42:44
  * @LastEditors: Zt2tzzt
- * @LastEditTime: 2020-07-23 17:58:24
+ * @LastEditTime: 2020-07-29 17:11:54
  * @Description: file content
  */ 
 import {request} from "./request"
@@ -16,6 +16,12 @@ export function getDetail (iid) {
   })
 }
 
+export function getRecommend() {
+  return request ({
+    url: '/recommend'
+  })
+}
+
 export class Goods {
   constructor (itemInfo, columns, services) {
     this.title = itemInfo.title
@@ -23,6 +29,7 @@ export class Goods {
     this.newPrice = itemInfo.price
     this.oldPrice = itemInfo.oldPrice
     this.discount = itemInfo.discountDesc
+    this.discountBgColor = itemInfo.discountBgColor
     this.columns = columns
     this.services = services
     this.realPrice = itemInfo.lowNowPrice

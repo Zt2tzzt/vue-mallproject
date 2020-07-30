@@ -2,18 +2,23 @@
  * @Author: Zt2tzzt
  * @Date: 2020-06-15 16:37:28
  * @LastEditors: Zt2tzzt
- * @LastEditTime: 2020-07-27 13:39:35
+ * @LastEditTime: 2020-07-30 16:55:54
  * @Description: file content
 --> 
 <template>
   <div id="detail">
     <detail-nav-bar class="detail-nav" />
-    <scroll class="content" ref="scroll">
-      <detail-swiper :top-images="topImages" />
-      <detail-base-info :goods="goods" />
-      <detail-shop-info :shop="shop" />
-      <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad" />
-      <detail-param-info :param-info="paramInfo"/>
+    <scroll class="content"
+            ref="scroll" >
+      <div>
+        <detail-swiper :top-images="topImages" />
+        <detail-base-info :goods="goods" />
+        <detail-shop-info :shop="shop" />
+        <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad" />
+        <detail-param-info :param-info="paramInfo"/>
+        <detail-comment-info :commentInfo="commentInfo" />
+        <goods-list :goods="recommends" />
+      </div>
     </scroll>
   </div>
 </template>
@@ -25,8 +30,11 @@ import DetailBaseInfo from "./childComps/DetailBaseInfo"
 import DetailShopInfo from "./childComps/DetailShopInfo"
 import DetailGoodsInfo from "./childComps/DetailGoodsInfo" // 导入商品图片信息组件
 import DetailParamInfo from "./childComps/DetailParamInfo"
+import DetailCommentInfo from "./childComps/DetailCommentInfo"
+import GoodsList from "components/content/goods/GoodsList" // 导入GoodsList用于展示推荐商品信息
 import Scroll from "components/common/scroll/Scroll" // 导入Scroll组件
-import { getDetail, Goods, Shop, GoodsParam } from "network/detail.js" // 导入商品详情，商品，商店信息。
+import { getDetail, getRecommend, Goods, Shop, GoodsParam } from "network/detail.js" // 导入商品详情，商品，商店信息。
+import { itemListenerMixin } from 'common/mixin' // 导入混入对象
 
 export default {
   name: 'Detail',
@@ -37,8 +45,11 @@ export default {
     DetailShopInfo,
     DetailGoodsInfo,
     DetailParamInfo,
+    DetailCommentInfo,
+    GoodsList,
     Scroll
   },
+  mixins: [itemListenerMixin], // 放入混入对象
   data () {
     return {
       iid: '',
@@ -47,6 +58,8 @@ export default {
       shop: {},
       detailInfo: {},
       paramInfo: {},
+      commentInfo: {},
+      recommends: [],
     }
   },
   created () {
@@ -55,6 +68,7 @@ export default {
     // 2.创建iid请求详情数据
     getDetail(this.iid).then(res => {
       const data = res.result
+      console.log(data)
       // 1.获取顶部的图片轮播数据
       this.topImages = data.itemInfo.topImages
 
@@ -65,15 +79,32 @@ export default {
       this.shop = new Shop(data.shopInfo)
 
       // 4.保存商品的详情数据。
-      this.detailInfo = data.detailInfo;
+      this.detailInfo = data.detailInfo
 
       // 5.获取参数信息。
       this.paramInfo = new GoodsParam(data.itemParams.info, data.itemParams.rule)
+
+      // 7.取出评论信息
+      if (data.rate.cRate !== 0) {
+        this.commentInfo = data.rate.list[0]
+      }
     })
+
+    // 3.请求推荐数据
+    getRecommend().then(res => {
+      // console.log(res)
+      this.recommends = res.data.list
+    })
+
+  },
+  mounted () {
+  },
+  destroyed () {
+    this.$bus.$off('itemImageLoad', this.itemImgListener)
   },
   methods: {
     imageLoad () {
-      this.$ref.scroll.refresh()
+      this.refresh()
     }
   }
 }
@@ -82,7 +113,7 @@ export default {
 <style scoped>
   #detail {
     position: relative;
-    z-index: 9;
+    z-index: 1;
     background-color: #fff;
     height: 100vh;
   }
@@ -94,6 +125,7 @@ export default {
   }
 
   .content {
+    background-color: #fff;
     height: calc(100% - 44px);
   }
 </style>

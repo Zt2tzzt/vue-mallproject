@@ -1,3 +1,10 @@
+<!--
+ * @Author: Zt2tzzt
+ * @Date: 2020-05-24 16:20:34
+ * @LastEditors: Zt2tzzt
+ * @LastEditTime: 2020-07-29 17:43:52
+ * @Description: file content
+--> 
 <template>
   <div class='goods'>
     <goods-list-item :key='index' v-for='(item, index) in goods' :goods-item='item' />

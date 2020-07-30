@@ -2,7 +2,7 @@
  * @Author: Zt2tzzt
  * @Date: 2020-06-16 11:10:04
  * @LastEditors: Zt2tzzt
- * @LastEditTime: 2020-07-23 15:38:22
+ * @LastEditTime: 2020-07-29 09:37:13
  * @Description: file content
 --> 
 <template>
@@ -36,5 +36,6 @@ export default {
 <style>
 .detail-swiper {
   height: 300px;
+  /* overflow: hidden; */
 }
 </style>
