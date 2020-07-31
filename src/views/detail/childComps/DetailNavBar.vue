@@ -2,7 +2,7 @@
  * @Author: Zt2tzzt
  * @Date: 2020-06-15 17:26:41
  * @LastEditors: Zt2tzzt
- * @LastEditTime: 2020-07-27 14:42:47
+ * @LastEditTime: 2020-07-31 11:04:38
  * @Description: file content
 --> 
 <template>
@@ -37,6 +37,7 @@ export default {
   methods: {
     titleClick (index) {
       this.currentIndex = index
+      this.$emit('titleClick', this.currentIndex)
     },
     backClick () {
       // this.$router.go(-1)

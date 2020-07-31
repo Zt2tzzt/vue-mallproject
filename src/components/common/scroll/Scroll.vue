@@ -2,7 +2,7 @@
  * @Author: Zt2tzzt
  * @Date: 2020-05-24 22:41:31
  * @LastEditors: Zt2tzzt
- * @LastEditTime: 2020-07-30 16:46:25
+ * @LastEditTime: 2020-07-31 11:45:06
  * @Description: file content
 --> 
 <template>
@@ -77,7 +77,7 @@ export default {
     },
     // refresh函数
     refresh () {
-      console.log('---refresh---')
+      // console.log('---refresh---')
       this.scroll && this.scroll.refresh()
     },
     getScrollY () {

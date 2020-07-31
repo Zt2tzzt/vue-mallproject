@@ -1,10 +1,17 @@
+/*
+ * @Author: Zt2tzzt
+ * @Date: 2020-07-30 18:11:27
+ * @LastEditors: Zt2tzzt
+ * @LastEditTime: 2020-07-30 20:42:54
+ * @Description: file content
+ */ 
 import axios from 'axios'
 
 // Edition 1
 export function request (config, success, failure) {
   // 1.创建axios的实例
   const instance = axios.create({
-    baseURL: 'http://152.136.185.210:8000/api/n3',
+    baseURL: 'http://152.136.185.210:8000/api/z8',
     timeout: 5000
   })
 

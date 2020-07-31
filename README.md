@@ -1,5 +1,11 @@
 # mallproject
 
+## Api address
+
+```
+WeChat: @coderwhy002
+```
+
 ## Project setup
 ```
 npm install
