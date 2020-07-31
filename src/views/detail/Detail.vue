@@ -2,7 +2,7 @@
  * @Author: Zt2tzzt
  * @Date: 2020-06-15 16:37:28
  * @LastEditors: Zt2tzzt
- * @LastEditTime: 2020-07-31 18:21:24
+ * @LastEditTime: 2020-08-01 02:15:25
  * @Description: 详情页
 --> 
 <template>
@@ -171,7 +171,16 @@ export default {
     },
     // 添加商品到购物车
     addToCart () {
-      console.log('---')
+      // 1.获取购物车需要展示的信息，图片，标题，描述，价格，数量。
+      const product = {}
+      product.iid = this.iid // 作为商品的唯一标识，一定要传
+      product.image = this.topImages[0]
+      product.title = this.goods.title
+      product.desc = this.goods.desc
+      product.price = this.goods.newPrice
+
+      // 2.将商品添加到购物车，用Vuex保存商品。
+      this.$store.commit('addCart', product)
     }
   },
 };

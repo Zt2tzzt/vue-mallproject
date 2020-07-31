@@ -2,7 +2,7 @@
  * @Author: Zt2tzzt
  * @Date: 2020-07-30 18:11:27
  * @LastEditors: Zt2tzzt
- * @LastEditTime: 2020-07-30 20:42:54
+ * @LastEditTime: 2020-08-01 02:16:51
  * @Description: file content
  */ 
 import axios from 'axios'
@@ -11,7 +11,7 @@ import axios from 'axios'
 export function request (config, success, failure) {
   // 1.创建axios的实例
   const instance = axios.create({
-    baseURL: 'http://152.136.185.210:8000/api/z8',
+    baseURL: '加微信coderwhy002获取接口地址',
     timeout: 5000
   })
 
