@@ -180,7 +180,8 @@ export default {
       product.price = this.goods.newPrice
 
       // 2.将商品添加到购物车，用Vuex保存商品。
-      this.$store.commit('addCart', product)
+      // this.$store.commit('addCart', product) // 提交给Vuex中的mutations
+      this.$store.dispatch('addCart', product) // 分发给Vue中的actions
     }
   },
 };
