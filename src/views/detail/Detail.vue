@@ -2,7 +2,7 @@
  * @Author: Zt2tzzt
  * @Date: 2020-06-15 16:37:28
  * @LastEditors: Zt2tzzt
- * @LastEditTime: 2020-08-01 02:15:25
+ * @LastEditTime: 2020-08-01 18:09:15
  * @Description: 详情页
 --> 
 <template>

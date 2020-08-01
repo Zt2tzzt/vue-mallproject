@@ -2,7 +2,7 @@
  * @Author: Zt2tzzt
  * @Date: 2020-06-16 10:42:44
  * @LastEditors: Zt2tzzt
- * @LastEditTime: 2020-07-29 17:11:54
+ * @LastEditTime: 2020-08-01 18:05:22
  * @Description: file content
  */ 
 import {request} from "./request"
@@ -26,7 +26,7 @@ export class Goods {
   constructor (itemInfo, columns, services) {
     this.title = itemInfo.title
     this.desc = itemInfo.desc
-    this.newPrice = itemInfo.price
+    this.newPrice = itemInfo.lowPrice
     this.oldPrice = itemInfo.oldPrice
     this.discount = itemInfo.discountDesc
     this.discountBgColor = itemInfo.discountBgColor

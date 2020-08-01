@@ -2,7 +2,7 @@
  * @Author: Zt2tzzt
  * @Date: 2020-07-31 14:54:17
  * @LastEditors: Zt2tzzt
- * @LastEditTime: 2020-07-31 16:23:16
+ * @LastEditTime: 2020-08-01 18:02:21
  * @Description: 详情页底部工具栏
 --> 
 <template>
@@ -31,11 +31,6 @@
 <script>
 export default {
   name: 'DetailBottomBar',
-  data () {
-    return {
-
-    }
-  },
   methods: {
     addToCart () {
       this.$emit('addToCart')
